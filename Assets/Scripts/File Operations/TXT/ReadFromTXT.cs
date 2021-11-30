@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,9 +19,9 @@ public static class ReadFromTXT
     //    Name = name;
     //}
 
-    public static EarthquakeInfo ReturnEarthquakeInfo(TextAsset X,TextAsset Z)
+    public static EarthquakeInfo ReturnEarthquakeInfo(TextAsset X, TextAsset Y, TextAsset Z)
     {
-        return new EarthquakeInfo(ReturnAxis(X),
+        return new EarthquakeInfo(ReturnAxis(X), ReturnAxis(Y),
             ReturnAxis(Z)
             );
     }
@@ -29,19 +30,23 @@ public static class ReadFromTXT
     {
 
         TextAsset TextAsset = ta;
+        try { 
+            _lines = TextAsset.text.Split('\n');
 
-        _lines = TextAsset.text.Split('\n');
+            _seconds = new float[_lines.Length];
+            _acceleration = new float[_lines.Length];
 
-        _seconds = new float[_lines.Length];
-        _acceleration = new float[_lines.Length];
-
-        for (int i = 0; i < _lines.Length; i++)
-        {
-            string[] commaSplit = _lines[i].Split(',');
-            _seconds[i] = float.Parse(commaSplit[0]);
-            _acceleration[i] = float.Parse(commaSplit[1]);
+            for (int i = 0; i < _lines.Length; i++)
+            {
+                string[] commaSplit = _lines[i].Split(',');
+                _seconds[i] = float.Parse(commaSplit[0]);
+                _acceleration[i] = float.Parse(commaSplit[1]);
+            }
         }
-
+        catch(Exception e)
+        {
+            Debug.LogError(e);
+        }
         return new EarthquakeAxis(_seconds, _acceleration);
     }
 

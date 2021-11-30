@@ -37,6 +37,10 @@ public class EarthquakeSeverityDropdown : DropDownComponent
                 Debug.Log("STRONG EQ SELECTED..");
                 EarthquakeManager.Instance.SetEarthquake(EarthquakeType.Strong);
                 break;
+            case 2:
+                Debug.Log("Hualien EQ SELECTED..");
+                EarthquakeManager.Instance.SetEarthquake(EarthquakeType.Hualien);
+                break;
         }
     }
 

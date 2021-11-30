@@ -80,6 +80,7 @@ public class EarthquakeManager : MonoBehaviour
                     //get axes
                     Earthquakes[i].Info = ReadFromTXT.ReturnEarthquakeInfo(
                         Earthquakes[i].X,
+                        Earthquakes[i].Y,
                         Earthquakes[i].Z
                     );
 
@@ -91,9 +92,10 @@ public class EarthquakeManager : MonoBehaviour
                     //calculate average acceleration
 
                     float xAverage = Earthquakes[i].Info.XAxis.Acceleration.Average();
+                    float yAverage = Earthquakes[i].Info.YAxis.Acceleration.Average();
                     float zAverage = Earthquakes[i].Info.ZAxis.Acceleration.Average();
 
-                    Earthquakes[i].Info.AverageAcceleration = new Vector3(xAverage, 0, zAverage);
+                    Earthquakes[i].Info.AverageAcceleration = new Vector3(xAverage, yAverage, zAverage);
 
                     //add to dictionary
 
@@ -155,7 +157,7 @@ public class EarthquakeManager : MonoBehaviour
                 i++;
                 Debug.Log("Simulating..");
                 Vector3 acceleration = new Vector3(_currentInfo.XAxis.Acceleration[i],
-                    0, _currentInfo.ZAxis.Acceleration[i]);
+                    _currentInfo.YAxis.Acceleration[i], _currentInfo.ZAxis.Acceleration[i]);
 
                 _rb.AddForce(acceleration, ForceMode.Acceleration);
                 CurrentAcceleration = acceleration;

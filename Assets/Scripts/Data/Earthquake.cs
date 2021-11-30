@@ -11,6 +11,7 @@ public class Earthquake : ScriptableObject
 
     [Header("Text Assets")]
     public TextAsset X;
+    public TextAsset Y;
     public TextAsset Z;
 
     [Header("Earthquake Info")]
@@ -21,11 +22,13 @@ public class Earthquake : ScriptableObject
 public enum EarthquakeType
 {
     Light=0,
-    Strong=1
+    Strong=1,
+    Hualien=2,
 }
 
 public enum EarthquakeAxisType
 {
     x,
+    y,
     z
 }
